@@ -35,7 +35,6 @@ import com.sun.org.apache.xml.internal.serializer.SerializationHandler;
 @RestController
 @RequestMapping("/user/v1")
 public class UserAccount {
-	
 	private static final Logger logger = Logger.getLogger(UserAccount.class);
 
 	@Autowired
