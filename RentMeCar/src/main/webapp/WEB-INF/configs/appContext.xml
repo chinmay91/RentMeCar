@@ -1,0 +1,31 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+<!-- 	<import resource="bazaar-rest-api.xml" />
+	<import resource="cxf-spring-rest.xml" />
+	<import resource="synergyDataSource.xml" />
+	<import resource="customer-service.xml" />
+	<import resource="customer-dao.xml" />
+	<import resource="spring-hibernate.xml" />
+	<import resource="common-dao.xml" />
+	<import resource="bazaar-data-mongo.xml" />
+ -->
+ 	<import resource="hibernate-config.xml"/>
+ 	<import resource="datasource.xml"/>
+ 	<import resource="dao.xml"/>
+ 	<import resource="service.xml"/>
+ 	<import resource="spring-security.xml"/>
+ 	<import resource="jdbcTemplate.xml"/>
+
+</beans>
+	

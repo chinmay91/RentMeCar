@@ -1,0 +1,86 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+
+	<!-- https://malalanayake.wordpress.com/2014/06/30/stateless-spring-security-on-rest-api/ -->
+
+	<!-- <http auto-config="true"> <intercept-url pattern="/rest/v1/admin**" 
+		access="hasRole('ROLE_USER')" /> <form-login login-page='/login.htm' default-target-url='/home.htm' 
+		always-use-default-target='true' /> mkyong <csrf /> </http> -->
+
+	<!-- <http auto-config="false" realm="Rest API" use-expressions="true" create-session="stateless" 
+		entry-point-ref="CustomAuthenticationEntryPoint"> <custom-filter ref="authenticationTokenProcessingFilter" 
+		position="FORM_LOGIN_FILTER" /> <intercept-url pattern="/authenticate" access="permitAll" 
+		/> <intercept-url pattern="/**" access="isAuthenticated()" /> <form-login 
+		login-page='/login.htm' default-target-url='/home.htm' always-use-default-target='true' 
+		/> <csrf /> </http> -->
+
+	<!-- <beans:bean id="CustomAuthenticationEntryPoint" class="com.rentmecar.rest.security.CustomAuthenticationEntryPoint" 
+		/> <beans:bean id="authenticationTokenProcessingFilter" class="com.rentmecar.rest.security.AuthenticationTokenProcessingFilter"> 
+		<beans:constructor-arg ref="authenticationManager" /> </beans:bean> <authentication-manager> 
+		<authentication-provider> <user-service> <user name="jimi" password="jimispassword" 
+		authorities="ROLE_USER" /> <user name="bob" password="bobspassword" authorities="ROLE_USER" 
+		/> </user-service> </authentication-provider> </authentication-manager> -->
+
+	<http auto-config="false" use-expressions="true" create-session="stateless"
+		authentication-manager-ref="authenticationManagerForRest"> <!-- entry-point-ref="restServicesEntryPoint" -->
+		<intercept-url pattern="/rest/user/**"
+			access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')"  requires-channel="https"/>
+		<intercept-url pattern="/rest/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<http-basic entry-point-ref="restServicesEntryPoint"/>
+		<access-denied-handler ref="myAuthenticationAccessDeniedHandler" />
+		<csrf disabled="true" />
+
+		<!-- <intercept-url pattern="/rest/v1/custSignUp" access="permitAll" /> -->
+		<!-- <form-login authentication-success-handler-ref="mySuccessHandler" 
+			authentication-failure-handler-ref="myAuthenticationFailureHandler" /> -->
+
+	</http>
+
+	<!-- Entry point for REST service. -->
+	<beans:bean id="restServicesEntryPoint"
+		class="com.rentmecar.rest.security.angularjs.CustomAuthenticationEntryPoint" />
+
+	<!-- Custom User details service which is provide the user data -->
+	<beans:bean id="customUserDetailsService"
+		class="com.rentmecar.rest.security.angularjs.UserDetailService" />
+
+	<!-- Connect the custom authentication success handler -->
+	<beans:bean id="mySuccessHandler"
+		class="com.rentmecar.rest.security.angularjs.RestAuthenticationSuccessHandler" />
+
+	<!-- Using Authentication Access Denied handler -->
+	<beans:bean id="myAuthenticationAccessDeniedHandler"
+		class="com.rentmecar.rest.security.angularjs.RestAccessDeniedHandler" />
+
+	<!-- Using Authentication failed handler -->
+	<beans:bean id="myAuthenticationFailureHandler"
+		class="com.rentmecar.rest.security.angularjs.RestAuthenticationFailureHandler" />
+
+	<!-- Authentication manager -->
+	<authentication-manager alias="authenticationManagerForRest">
+		<authentication-provider user-service-ref="customUserDetailsService">
+			<password-encoder ref="bcryptEncoder">
+				<!-- <salt-source ref="saltSource" /> -->
+			</password-encoder>
+		</authentication-provider>
+	</authentication-manager>
+
+	<beans:bean id="bcryptEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+
+	<beans:bean id="saltSource"
+		class="org.springframework.security.authentication.dao.ReflectionSaltSource"
+		p:userPropertyToUse="salt" />
+
+	<!-- Enable the annotations for defining the secure role -->
+	<global-method-security secured-annotations="enabled" />
+	<!-- http://stackoverflow.com/questions/4968704/spring-security-3-salting-password-issue 
+		http://stackoverflow.com/questions/7658853/spring-security-custom-authentication-and-password-encoding 
+		https://prasanthnath.wordpress.com/2013/11/22/spring-security-behind-the-scenes/ -->
+</beans:beans>
