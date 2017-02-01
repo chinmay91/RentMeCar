@@ -1,36 +1,40 @@
 package com.rentmecar.dao.entity.users;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name="Customer_profile")
-@PrimaryKeyJoinColumn(name="u_id")
+@PrimaryKeyJoinColumn(name="U_Id")
 public class CustomerProfile extends Credentials  implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Column(name="f_name",length = 35)
+	@Column(name="F_Name",length = 35)
 	private String fName;
-	@Column(name="l_name",length = 35)
+	@Column(name="L_Name",length = 35)
 	private String lName;
-	@Column(name="e_mail",length = 50)
+	@Column(name="E_Mail",length = 50)
 	private String eMail;
-	@Column(name="license_no",length = 15)
+	@Column(name="License_No",length = 15)
 	private String licenseNo;
-	@Column(name="age")
+	@Column(name="Age")
 	private int age;
-	@Column(name="gender",length = 10)
+	@Column(name="Gender",length = 10)
 	private String gender;
-	@Column(name="phone",length = 15)
+	@Column(name="Phone",length = 15)
 	private String phone;
+	@OneToMany(mappedBy="customerProfile")
+	private List<UserBooking> userBookings;
 	
 	public CustomerProfile(){
 		super();
@@ -79,8 +83,12 @@ public class CustomerProfile extends Credentials  implements Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
-
+	public List<UserBooking> getUserBookings() {
+		return userBookings;
+	}
+	public void setUserBookings(List<UserBooking> userBookings) {
+		this.userBookings = userBookings;
+	}
 	@Override
 	public String toString() {
 		return "CustomerProfile [fName=" + fName + ", lName=" + lName + ", eMail=" + eMail + ", licenseNo=" + licenseNo
@@ -88,6 +96,4 @@ public class CustomerProfile extends Credentials  implements Serializable {
 				+ ", getPassword()=" + getPassword() + ", getRole()=" + getRole() + ", toString()=" + super.toString()
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
-	
-	
 }

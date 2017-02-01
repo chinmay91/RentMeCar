@@ -24,6 +24,15 @@
 		<servlet-name>agora</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
+	
+	<filter>
+		<filter-name>CorsCheckChain</filter-name>
+		<filter-class>com.rentmecar.filters.CorsCheckFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CorsCheckChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
@@ -34,7 +43,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-<!-- 	<error-page>
+	<error-page>
 		<error-code>404</error-code>
 		<location>/errors/resourcenotfound</location>
 	</error-page>
@@ -45,6 +54,6 @@
 	<error-page>
 		<error-code>401</error-code>
 		<location>/errors/unauthorised</location>
-	</error-page> -->
+	</error-page>
 
 </web-app>

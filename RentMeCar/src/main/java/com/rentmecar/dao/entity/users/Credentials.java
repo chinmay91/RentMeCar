@@ -22,14 +22,14 @@ public class Credentials implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="u_id")
+	@Column(name="U_Id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int uId;
-	@Column(name="username",length = 30)
+	@Column(name="Username",length = 30)
 	private String username;
-	@Column(name="password",length = 60)
+	@Column(name="Password",length = 60)
 	private String password;
-	@Column(name="role", length = 20)
+	@Column(name="Role", length = 20)
 	private String role;
 	
 	public Credentials(){

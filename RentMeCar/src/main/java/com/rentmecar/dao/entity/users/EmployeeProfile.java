@@ -9,18 +9,18 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Employee_profile")
-@PrimaryKeyJoinColumn(name="u_id")
+@PrimaryKeyJoinColumn(name="U_Id")
 public class EmployeeProfile extends Credentials  implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Column(name="f_name",length = 35)
+	@Column(name="F_Name",length = 35)
 	private String fName;
-	@Column(name="l_name",length = 35)
+	@Column(name="L_Name",length = 35)
 	private String lName;
-	@Column(name="phone",length = 15)
+	@Column(name="Phone",length = 15)
 	private String phone;
 	
 	public EmployeeProfile(){

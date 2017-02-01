@@ -22,9 +22,11 @@ app.factory('loginFactory', function($http, $q) {
 			}).then(function(data, status, headers, config) {
 				deferred.resolve(data);
 			}, function(data, status, headers, config) {
-				deferred.reject(status);
+				deferred.reject(data);
 			});
 			return deferred.promise;
 		}
 	};
 });
+
+// CORS: http://restlet.com/blog/2015/12/15/understanding-and-using-cors/
