@@ -72,5 +72,4 @@ public class UserAccountService implements IUserAccountService {
 		profile.setuId(cp.getuId());
 		return profile;
 	}
-
 }

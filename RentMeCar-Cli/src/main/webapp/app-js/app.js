@@ -16,6 +16,11 @@ var app = angular.module('rentACar',['ui.router']).config(
 					templateUrl: 'pages/users/home.html',
 					controller: homeController
 				})
+				.state('cars',{
+					url:"/viewcars",
+					templateUrl : 'pages/admin/cars.html',
+					controller: carsController
+				})
 			/*$routeProvider.when('/userhome', {
 				templateUrl : 'pages/users/home.html',
 				controller : homeController
@@ -28,6 +33,7 @@ var app = angular.module('rentACar',['ui.router']).config(
 		} ]);
 
 
+app.factory('AuthenticationService', AuthenticationService);
 
 /**
 	This part is dedicated to URL constants
