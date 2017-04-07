@@ -1,5 +1,7 @@
 package com.rentmecar.controller;
 
+import org.springframework.web.context.ServletContextAware;
+
 public class cls {
 
 	public static void main(String[] args) {
@@ -13,5 +15,6 @@ public class cls {
 		System.arraycopy(a,1,b,3,0);
 		System.out.println(new String(a) + " " + new String(b));
 		Pratik sdk = new Pratik("jksdfkj")
+				ServletContextAware
 	}
 }
